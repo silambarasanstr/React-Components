@@ -1,5 +1,8 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Input from "../components/common/form/Input";
+import Button from "../components/common/Button";
+import { validateRegister } from "../validators/authValidator";
 
 export default function Register() {
   const [form, setForm] = useState({
@@ -24,23 +27,18 @@ export default function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const validationErrors = validateRegister(form);
+    setErrors(validationErrors);
 
-    let newErrors = {};
-
-    if (!form.firstName) newErrors.firstName = "First Name is required";
-    if (!form.email) newErrors.email = "Email is required";
-    if (!form.password) newErrors.password = "Password is required";
-
-    if (Object.keys(newErrors).length) {
-      setErrors(newErrors);
+    if (Object.keys(validationErrors).length > 0) {
       return;
     }
 
-    console.log(form);
+    console.log("Register:", form);
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen px-4 border bg-gradient-to-br from-slate-100 via-white to-blue-100">
+    <div className="flex items-center justify-center min-h-screen px-4 bg-gray-200 border">
       <div className="w-full max-w-sm p-5 bg-white border border-gray-200 shadow-lg rounded-xl">
         {/* Header */}
         <div className="mb-5 text-center">
@@ -85,13 +83,22 @@ export default function Register() {
             required
           />
 
-          <button
-            type="submit"
-            className="w-full py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700"
-          >
+          <Button type="submit" className="w-full">
             Register
-          </button>
+          </Button>
         </form>
+        {/* Back to Login */}
+        <div className="mt-5 text-center">
+          <p className="text-xs text-gray-500">
+            Already have an account?{" "}
+            <Link
+              to="/login"
+              className="font-medium text-[#0d61fd] hover:underline"
+            >
+              Back to Login
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );

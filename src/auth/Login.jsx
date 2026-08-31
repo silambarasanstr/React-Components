@@ -1,25 +1,44 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Button from "../components/common/Button";
 import Input from "../components/common/form/Input";
+import { validateLogin } from "../validators/authValidator";
+import QuickLogin from "../components/auth/QuickLogin";
 
 const Login = () => {
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
+  const [errors, setErrors] = useState({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const validationErrors = validateLogin(form);
+    setErrors(validationErrors);
+    if (Object.keys(validationErrors).length > 0) {
+      return;
+    }
+    console.log("Login:", form);
   };
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
+
     setForm((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [name]: value,
+    }));
+
+    // Remove error while typing
+    setErrors((prev) => ({
+      ...prev,
+      [name]: "",
     }));
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen px-4 border bg-gradient-to-br from-slate-100 via-white to-blue-100">
+    <div className="flex items-center justify-center min-h-screen px-4 bg-gray-200 border">
       <div className="w-full max-w-sm p-5 bg-white border border-gray-200 shadow-lg rounded-xl">
         {/* Header */}
         <div className="mb-5 text-center">
@@ -42,6 +61,7 @@ const Login = () => {
             onChange={handleChange}
             autoComplete="email"
             required
+            error={errors.email}
           />
 
           <Input
@@ -53,15 +73,25 @@ const Login = () => {
             onChange={handleChange}
             autoComplete="current-password"
             required
+            error={errors.password}
           />
 
-          <button
-            type="submit"
-            className="mt-2 w-full rounded-lg bg-blue-600 py-2.5 text-sm font-medium text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
-          >
+          <Button type="submit" className="w-full">
             Sign In
-          </button>
+          </Button>
         </form>
+        {/* Register Link */}
+        <div className="mt-6 text-center">
+          <p className="text-xs text-gray-500">
+            Don't have an account?{" "}
+            <Link
+              to="/register"
+              className="font-medium text-[#0d61fd] hover:underline"
+            >
+              Create one here
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );

@@ -3,7 +3,6 @@ import {
   CheckCircle,
   Info,
   Loader2,
-  X,
 } from "lucide-react";
 import Modal from "./Modal";
 
@@ -50,80 +49,68 @@ const ConfirmModal = ({
   const Icon = currentVariant.icon;
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="w-full max-w-md overflow-hidden bg-white shadow-xl rounded-2xl">
-        {/* Header */}
-        <div className="flex items-center justify-between px-6 pt-6">
-          <div
-            className={`
-              flex
-              h-11
-              w-11
-              items-center
-              justify-center
-              rounded-full
-              ${currentVariant.iconWrapper}
-            `}
-          >
-            <Icon
-              size={22}
-              strokeWidth={2}
-              className={currentVariant.iconColor}
-            />
-          </div>
-
-          <button
-            type="button"
-            onClick={onClose}
-            disabled={loading}
-            aria-label="Close"
-            className="flex items-center justify-center w-8 h-8 text-gray-400 transition rounded-lg hover:bg-gray-100 hover:text-gray-600 disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            <X size={18} />
-          </button>
+    <Modal
+      isOpen={isOpen}
+      onClose={loading ? undefined : onClose}
+      title={title}
+      size="sm"
+      showCloseButton={!loading}
+      closeOnOverlayClick={!loading}
+    >
+      <div className="space-y-5">
+        {/* Icon */}
+        <div
+          className={`
+            flex h-11 w-11 items-center justify-center
+            rounded-full
+            ${currentVariant.iconWrapper}
+          `}
+        >
+          <Icon
+            size={21}
+            strokeWidth={2}
+            className={currentVariant.iconColor}
+          />
         </div>
 
-        {/* Content */}
-        <div className="px-6 pt-4">
-          <h2 className="text-lg font-semibold leading-6 text-gray-900">
-            {title}
-          </h2>
-
-          <p className="mt-2 text-sm leading-6 text-gray-500">
+        {/* Message */}
+        <div>
+          <p className="text-sm leading-6 text-slate-500">
             {message}
           </p>
         </div>
 
         {/* Footer */}
-        <div
-          className="flex flex-col-reverse gap-2 px-6 py-4 mt-6 border-t border-gray-100 bg-gray-50/50 sm:flex-row sm:justify-end"
-        >
-          {/* Cancel */}
+        <div className="flex flex-col-reverse gap-2 border-t border-slate-100 pt-4 sm:flex-row sm:justify-end">
           <button
             type="button"
             onClick={onClose}
             disabled={loading}
-            className="h-10 px-4 text-sm font-medium text-gray-700 transition bg-white border border-gray-200 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-200 disabled:cursor-not-allowed disabled:opacity-50"
+            className="
+              h-10 rounded-lg
+              border border-slate-200
+              bg-white px-4
+              text-sm font-medium text-slate-700
+              transition
+              hover:bg-slate-50
+              focus:outline-none
+              focus:ring-2
+              focus:ring-slate-200
+              disabled:cursor-not-allowed
+              disabled:opacity-50
+            "
           >
             {cancelText}
           </button>
 
-          {/* Confirm */}
           <button
             type="button"
             onClick={onConfirm}
             disabled={loading}
             className={`
-              flex
-              h-10
-              items-center
-              justify-center
-              gap-2
-              rounded-lg
-              px-4
-              text-sm
-              font-medium
-              text-white
+              flex h-10 items-center justify-center gap-2
+              rounded-lg px-4
+              text-sm font-medium text-white
               shadow-sm
               transition
               focus:outline-none
@@ -141,9 +128,7 @@ const ConfirmModal = ({
               />
             )}
 
-            {loading
-              ? "Processing..."
-              : confirmText}
+            {loading ? "Processing..." : confirmText}
           </button>
         </div>
       </div>

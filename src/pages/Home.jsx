@@ -89,43 +89,37 @@ const categories = [
     id: 1,
     name: "Electronics",
     productCount: 24,
-    image:
-      "https://images.unsplash.com/photo-1498049794561-7780e7231661?w=500",
+    image: "https://images.unsplash.com/photo-1498049794561-7780e7231661?w=500",
   },
   {
     id: 2,
     name: "Fashion",
     productCount: 36,
-    image:
-      "https://images.unsplash.com/photo-1445205170230-053b83016050?w=500",
+    image: "https://images.unsplash.com/photo-1445205170230-053b83016050?w=500",
   },
   {
     id: 3,
     name: "Shoes",
     productCount: 18,
-    image:
-      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500",
+    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500",
   },
   {
     id: 4,
     name: "Watches",
     productCount: 12,
-    image:
-      "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=500",
+    image: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=500",
   },
   {
     id: 5,
     name: "Beauty",
     productCount: 20,
-    image:
-      "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=500",
+    image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=500",
   },
   {
     id: 6,
     name: "Accessories",
     productCount: 15,
-    image:
-      "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500",
+    image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500",
   },
 ];
 
@@ -136,7 +130,6 @@ const Home = () => {
 
   return (
     <main className="w-full px-4 mx-auto max-w-8xl sm:px-6 lg:px-8">
-
       {/* Hero */}
       <HeroSection
         badge="SUMMER SALE"
@@ -148,12 +141,16 @@ const Home = () => {
       />
 
       {/* Featured Products */}
-      <ProductGrid
-        title="Featured Products"
-        products={featuredProducts}
-        showDescription={false}
-        columns={4}
-      />
+
+      <div className="py-8">
+        <ProductGrid
+          title="Featured Products"
+          description="Discover our most popular products"
+          products={featuredProducts}
+          showDescription={false}
+          columns={5}
+        />
+      </div>
 
       {/* Promotional Banner */}
       <PromoBanner
@@ -168,9 +165,7 @@ const Home = () => {
         title="Shop by Category"
         description="Explore our popular categories"
         categories={categories}
-        onCategoryClick={(category) =>
-          console.log("Category:", category.name)
-        }
+        onCategoryClick={(category) => console.log("Category:", category.name)}
       />
     </main>
   );

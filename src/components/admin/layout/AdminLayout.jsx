@@ -1,40 +1,38 @@
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
-import Sidebar from "./Sidebar";
+import Sidebar from "./SideBar";
 import Footer from "./Footer";
 
-export default function AdminLayout({ children }) {
+export default function AdminLayout() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <div className="flex">
-        <Sidebar
-          mobileOpen={mobileOpen}
+    <div className="flex h-screen overflow-hidden bg-gray-100">
+      {/* Sidebar */}
+      <Sidebar
+        mobileOpen={mobileOpen}
+        setMobileOpen={setMobileOpen}
+        collapsed={collapsed}
+      />
+
+      {/* Main Area */}
+      <div className="flex flex-col flex-1 min-w-0 h-screen">
+        {/* Header */}
+        <Header
           setMobileOpen={setMobileOpen}
           collapsed={collapsed}
+          setCollapsed={setCollapsed}
         />
 
-        {/* min-w-0 is the fix: without it, a flex item won't shrink below
-            its content's natural width, so any wide child (like the
-            1400px-wide table) pushes this whole column wider than the
-            viewport and the *page* scrolls horizontally instead of the
-            table's own overflow-auto box. */}
-        <div className="flex flex-col flex-1 min-w-0 min-h-screen">
-          <Header
-            setMobileOpen={setMobileOpen}
-            collapsed={collapsed}
-            setCollapsed={setCollapsed}
-          />
+        {/* Content */}
+        <main className="flex-1 min-w-0 overflow-y-auto p-5">
+          <Outlet />
+        </main>
 
-          <main className="flex-1 min-w-0 p-5">
-            <Outlet />
-          </main>
-
-          <Footer />
-        </div>
+        {/* Footer */}
+        <Footer />
       </div>
     </div>
   );

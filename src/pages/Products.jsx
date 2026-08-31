@@ -1,4 +1,5 @@
 import ProductGrid from "../components/ecommerce/product/ProductGrid";
+import FilterSidebar from "../components/ecommerce/filter/FilterSidebar";
 
 const products = [
   {
@@ -78,19 +79,29 @@ const products = [
     reviews: 75,
     inStock: true,
     featured: false,
-  }
+  },
 ];
 
 function ProductsPage() {
   return (
-    <div className="container px-4 py-8 mx-auto">
-      <ProductGrid
-        products={products}
-        onAddToCart={(product) => console.log("Cart:", product)}
-        onWishlist={(product) => console.log("Wishlist:", product)}
-        onView={(product) => console.log("View:", product)}
-        columns={3}
-      />
+    <div className="container px-3 py-4 mx-auto">
+      <div className="flex items-start gap-4">
+        {/* Sidebar */}
+        <aside className="w-64 overflow-hidden bg-white border border-gray-200 rounded shrink-0">
+          <FilterSidebar />
+        </aside>
+
+        {/* Products */}
+      
+          <ProductGrid
+            products={products}
+            onAddToCart={(product) => console.log("Cart:", product)}
+            onWishlist={(product) => console.log("Wishlist:", product)}
+            onView={(product) => console.log("View:", product)}
+            columns={4}
+          />
+       
+      </div>
     </div>
   );
 }

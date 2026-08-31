@@ -60,3 +60,14 @@ const StatCard = ({
 };
 
 export default StatCard;
+
+// use
+
+{/* <StatCard
+  title="Active Employees"
+  value="108"
+  icon={UserCheck}
+  trend="+8%"
+  description="from last month"
+  trendType="up"
+/>; */}

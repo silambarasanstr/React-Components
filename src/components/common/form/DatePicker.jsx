@@ -11,11 +11,11 @@ const DatePicker = ({
   error,
 }) => {
   return (
-    <div className="w-full">
+    <div className="w-full mb-3">
       {label && (
         <label
           htmlFor={name}
-          className="mb-1.5 block text-xs font-medium text-gray-700"
+          className="block mb-1 text-xs font-medium text-gray-700"
         >
           {label}
           {required && <span className="ml-1 text-red-500">*</span>}
