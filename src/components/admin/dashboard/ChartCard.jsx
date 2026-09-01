@@ -14,10 +14,14 @@ const ChartCard = ({
       {/* Header */}
       <div className="flex items-start justify-between gap-4 px-4 py-3 border-b border-gray-100">
         <div>
-          <h3 className="text-sm font-semibold text-gray-900">{title}</h3>
+          <h3 className="text-sm font-semibold text-gray-900">
+            {title}
+          </h3>
 
           {subtitle && (
-            <p className="mt-0.5 text-xs text-gray-500">{subtitle}</p>
+            <p className="mt-0.5 text-xs text-gray-500">
+              {subtitle}
+            </p>
           )}
         </div>
 
@@ -35,7 +39,9 @@ const ChartCard = ({
       </div>
 
       {/* Chart */}
-      <div className="p-4">{children}</div>
+      <div className="p-4">
+        {children}
+      </div>
     </div>
   );
 };

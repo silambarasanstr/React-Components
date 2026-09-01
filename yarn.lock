@@ -2154,7 +2154,7 @@ readdirp@~3.6.0:
 
 recharts@^3.10.1:
   version "3.10.1"
-  resolved "https://registry.npmjs.org/recharts/-/recharts-3.10.1.tgz"
+  resolved "https://registry.yarnpkg.com/recharts/-/recharts-3.10.1.tgz#e6f52c2604a38f728b6d47f95881595fa6604c6c"
   integrity sha512-QXFrvt6IVcw7eeZCoyXTwkIJAX3Dv1nyVhMicXJ47GsGDDpcN8z6o644DibE9XjpBTThtsomLKnTV6lc+cVFUA==
   dependencies:
     "@reduxjs/toolkit" "^1.9.0 || 2.x.x"

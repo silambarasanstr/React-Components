@@ -1,4 +1,5 @@
 import SectionHeader from "../components/admin/common/SectionHeader";
+import ChartCard from "../components/admin/dashboard/ChartCard";
 
 const Dashboard = () => {
   return (

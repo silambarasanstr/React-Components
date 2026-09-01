@@ -10,19 +10,18 @@ import About from "../pages/About";
 import Form from "../pages/Form";
 
 import Dashboard from "../admin/Dashboard";
+
 import AdminLayout from "../components/admin/layout/AdminLayout";
 import AdminShowcase from "../admin/AdminShowcase";
-import FormsShowcase from "../admin/FormsShowcase";
 
-import FormComponents from "../admin/form/FormComponents";
-import FormExample from "../admin/form/FormExample";
-
-import ModalsShowcase from "../admin/ModalsShowcase";
 import BasicTableShowcase from "../admin/data-table/BasicTableShowcase";
 import DataTableShowcase from "../admin/data-table/DataTableShowcase";
 import SearchFilterPaginationShowcase from "../admin/data-table/SearchFilterPaginationShowcase";
 import SelectionTableShowcase from "../admin/data-table/SelectionTableShowcase";
 import SortableTableShowcase from "../admin/data-table/SortableTableShowcase";
+
+import FormComponents from "../admin/form/FormComponents";
+import FormExample from "../admin/form/FormExample";
 
 import ModalComponents from "../admin/modal/ModalComponents";
 import ModalExample from "../admin/modal/ModalExample";
@@ -87,7 +86,6 @@ const AppRoutes = () => {
             path="admin-showcase/data-table/selection"
             element={<SelectionTableShowcase />}
           />
-          {/* <Route path="admin-showcase/forms" element={<FormsShowcase />} /> */}
 
           <Route
             path="/admin/admin-showcase/forms/components"
