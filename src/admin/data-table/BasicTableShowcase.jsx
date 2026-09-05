@@ -1,10 +1,41 @@
 import { useState } from "react";
-import { Pencil, Trash2, Mail, Building2 } from "lucide-react";
-
+import { Pencil, Trash2, Mail, Building2, Tags } from "lucide-react";
+import DataTable from "../../components/admin/table/DataTable";
 import SectionHeader from "../../components/admin/common/SectionHeader";
 import ColumnVisibility from "../../components/admin/common/ColumnVisibility";
+import Button from "../../components/common/Button";
 
 export default function BasicTableShowcase() {
+  const columns = [
+    {
+      key: "name",
+      label: "Name",
+    },
+    {
+      key: "email",
+      label: "Email",
+    },
+    {
+      key: "department",
+      label: "Department",
+    },
+    {
+      key: "status",
+      label: "Status",
+      render: (row) => (
+        <span
+          className={`rounded-full px-2.5 py-1 text-xs font-medium ${
+            row.status === "active"
+              ? "bg-green-100 text-green-700"
+              : "bg-red-100 text-red-700"
+          }`}
+        >
+          {row.status}
+        </span>
+      ),
+    },
+  ];
+
   const employees = [
     {
       id: 1,
@@ -152,162 +183,223 @@ export default function BasicTableShowcase() {
     },
   ];
 
-  const [visibleColumns, setVisibleColumns] = useState({
-    employee: true,
-    department: true,
-    salary: true,
-    status: true,
-    location: true,
-    manager: true,
-    joinDate: true,
-    phone: true,
-    actions: true,
-  });
-
-  const columns = [
-    { key: "employee", label: "Employee" },
-    { key: "department", label: "Department" },
-    { key: "salary", label: "Salary" },
-    { key: "status", label: "Status" },
-    { key: "location", label: "Location" },
-    { key: "manager", label: "Manager" },
-    { key: "joinDate", label: "Join Date" },
-    { key: "phone", label: "Phone" },
-    { key: "actions", label: "Actions" },
-  ];
-
   return (
-    <div className="bg-white border border-gray-200 shadow-sm rounded-xl">
-      {/* Header */}
-      <div className="flex flex-col gap-3 px-4 py-3 border-b md:flex-row md:items-center md:justify-between">
-        <SectionHeader
-          title="Employee List"
-          description="Manage your employees."
-        />
+    <div className="space-y-4">
+      <div className="p-4 bg-slate-900">
+        <div className="overflow-x-hidden bg-white border border-gray-200 shadow-sm rounded-xl">
+          {/* Header */}
+          <div className="flex flex-col gap-3 px-4 py-3 border-b md:flex-row md:items-center md:justify-between">
+            <SectionHeader
+              title="Basic Table 1"
+              description="Manage your employees."
+            />
 
-        <div className="flex items-center gap-2">
-          <ColumnVisibility
-            columns={columns}
-            visibleColumns={visibleColumns}
-            setVisibleColumns={setVisibleColumns}
-          />
+            <div className="flex items-center gap-2">
+              <Button type="button">+ Add Employee</Button>
+            </div>
+          </div>
 
-          <button
-            type="button"
-            className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700"
-          >
-            + Add Employee
-          </button>
+          {/* Table */}
+          <div className="max-h-[450px] overflow-auto  rounded-xl">
+            <table className="w-full table-auto">
+              <thead className="sticky top-0 z-10 border-b bg-gray-50">
+                <tr>
+                  <th className="px-4 py-2.5 text-left text-[11px] font-semibold uppercase text-gray-500 whitespace-nowrap">
+                    Employee
+                  </th>
+
+                  <th className="px-4 py-2.5 text-left text-[11px] font-semibold uppercase text-gray-500 whitespace-nowrap">
+                    Department
+                  </th>
+
+                  <th className="px-4 py-2.5 text-left text-[11px] font-semibold uppercase text-gray-500 whitespace-nowrap">
+                    Salary
+                  </th>
+
+                  <th className="px-4 py-2.5 text-left text-[11px] font-semibold uppercase text-gray-500 whitespace-nowrap">
+                    Status
+                  </th>
+
+                  <th className="px-4 py-2.5 text-left text-[11px] font-semibold uppercase text-gray-500 whitespace-nowrap">
+                    Location
+                  </th>
+
+                  <th className="px-4 py-2.5 text-left text-[11px] font-semibold uppercase text-gray-500 whitespace-nowrap">
+                    Manager
+                  </th>
+
+                  <th className="px-4 py-2.5 text-left text-[11px] font-semibold uppercase text-gray-500 whitespace-nowrap">
+                    Join Date
+                  </th>
+
+                  <th className="px-4 py-2.5 text-left text-[11px] font-semibold uppercase text-gray-500 whitespace-nowrap">
+                    Phone
+                  </th>
+
+                  <th className="px-4 py-2.5 text-center text-[11px] font-semibold uppercase text-gray-500 whitespace-nowrap">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {employees.map((employee) => (
+                  <tr
+                    key={employee.id}
+                    className="transition border-b hover:bg-blue-50/40"
+                  >
+                    <td className="px-4 py-3">
+                      <div className="flex items-center gap-3">
+                        <div className="flex items-center justify-center text-sm font-semibold text-blue-600 bg-blue-100 rounded-full h-9 w-9 shrink-0">
+                          {employee.name.charAt(0)}
+                        </div>
+
+                        <div>
+                          <h4 className="text-sm font-medium text-gray-800 whitespace-nowrap">
+                            {employee.name}
+                          </h4>
+
+                          <div className="mt-0.5 flex items-center gap-1 text-xs text-gray-500 whitespace-nowrap">
+                            <Mail size={12} />
+                            {employee.email}
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="px-4 py-3 text-sm text-gray-700 whitespace-nowrap">
+                      <div className="flex items-center gap-1.5">
+                        <Building2 size={14} className="text-gray-400" />
+                        {employee.department}
+                      </div>
+                    </td>
+
+                    <td className="px-4 py-3 text-sm font-medium text-gray-700 whitespace-nowrap">
+                      {employee.salary}
+                    </td>
+
+                    <td className="px-4 py-3 whitespace-nowrap">
+                      <span
+                        className={`rounded-full px-2.5 py-1 text-[11px] font-medium ${
+                          employee.status === "Active"
+                            ? "bg-green-100 text-green-700"
+                            : "bg-red-100 text-red-700"
+                        }`}
+                      >
+                        {employee.status}
+                      </span>
+                    </td>
+
+                    <td className="px-4 py-3 text-sm text-gray-700 whitespace-nowrap">
+                      {employee.location}
+                    </td>
+
+                    <td className="px-4 py-3 text-sm text-gray-700 whitespace-nowrap">
+                      {employee.manager}
+                    </td>
+
+                    <td className="px-4 py-3 text-sm text-gray-700 whitespace-nowrap">
+                      {employee.joinDate}
+                    </td>
+
+                    <td className="px-4 py-3 text-sm text-gray-700 whitespace-nowrap">
+                      {employee.phone}
+                    </td>
+
+                    <td className="px-4 py-3">
+                      <div className="flex justify-center gap-2">
+                        <button
+                          type="button"
+                          className="rounded-md border border-blue-200 p-1.5 text-blue-600 transition hover:bg-blue-600 hover:text-white"
+                        >
+                          <Pencil size={14} />
+                        </button>
+
+                        <button
+                          type="button"
+                          className="rounded-md border border-red-200 p-1.5 text-red-600 transition hover:bg-red-600 hover:text-white"
+                        >
+                          <Trash2 size={14} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
-      {/* Table */}
-      <div className="max-h-[450px] overflow-auto">
-        <table className="w-full table-auto">
-          <thead className="sticky top-0 z-10 border-b bg-gray-50">
-            <tr>
-              {visibleColumns.employee && (
-                <th className="px-4 py-2.5 text-left text-[11px] font-semibold uppercase text-gray-500 whitespace-nowrap">
-                  Employee
-                </th>
-              )}
+      <div className="p-4 bg-slate-900">
+        <DataTable
+          columns={columns}
+          data={employees}
+          onEdit={(employee) => {
+            console.log("Edit:", employee);
+          }}
+          onDelete={(employee) => {
+            console.log("Delete:", employee);
+          }}
+        />
+      </div>
 
-              {visibleColumns.department && (
-                <th className="px-4 py-2.5 text-left text-[11px] font-semibold uppercase text-gray-500 whitespace-nowrap">
+      <div className="p-4 bg-slate-900">
+        <div className="overflow-x-auto bg-white max-h-[450px]">
+          <table className="w-full min-w-[600px] text-left">
+            <thead>
+              <tr className="border-b border-gray-100 bg-gray-50">
+                <th className="px-4 py-3 text-[11px] font-semibold text-gray-500">
+                  #
+                </th>
+
+                <th className="px-4 py-3 text-[11px] font-semibold text-gray-500">
+                  Category
+                </th>
+
+                <th className="px-4 py-3 text-[11px] font-semibold text-gray-500">
                   Department
                 </th>
-              )}
 
-              {visibleColumns.salary && (
-                <th className="px-4 py-2.5 text-left text-[11px] font-semibold uppercase text-gray-500 whitespace-nowrap">
-                  Salary
-                </th>
-              )}
-
-              {visibleColumns.status && (
-                <th className="px-4 py-2.5 text-left text-[11px] font-semibold uppercase text-gray-500 whitespace-nowrap">
+                <th className="px-4 py-3 text-[11px] font-semibold text-gray-500">
                   Status
                 </th>
-              )}
 
-              {visibleColumns.location && (
-                <th className="px-4 py-2.5 text-left text-[11px] font-semibold uppercase text-gray-500 whitespace-nowrap">
-                  Location
-                </th>
-              )}
-
-              {visibleColumns.manager && (
-                <th className="px-4 py-2.5 text-left text-[11px] font-semibold uppercase text-gray-500 whitespace-nowrap">
-                  Manager
-                </th>
-              )}
-
-              {visibleColumns.joinDate && (
-                <th className="px-4 py-2.5 text-left text-[11px] font-semibold uppercase text-gray-500 whitespace-nowrap">
-                  Join Date
-                </th>
-              )}
-
-              {visibleColumns.phone && (
-                <th className="px-4 py-2.5 text-left text-[11px] font-semibold uppercase text-gray-500 whitespace-nowrap">
-                  Phone
-                </th>
-              )}
-
-              {visibleColumns.actions && (
-                <th className="px-4 py-2.5 text-center text-[11px] font-semibold uppercase text-gray-500 whitespace-nowrap">
+                <th className="px-4 py-3 text-right text-[11px] font-semibold text-gray-500">
                   Actions
                 </th>
-              )}
-            </tr>
-          </thead>
+              </tr>
+            </thead>
 
-          <tbody>
-            {employees.map((employee) => (
-              <tr
-                key={employee.id}
-                className="transition border-b hover:bg-blue-50/40"
-              >
-                {visibleColumns.employee && (
+            <tbody>
+              {employees.map((employee, index) => (
+                <tr
+                  key={employee._id}
+                  className="border-b border-gray-50 last:border-0 hover:bg-gray-50"
+                >
+                  <td className="px-4 py-3 text-xs text-gray-400">
+                    {index + 1}
+                  </td>
+
                   <td className="px-4 py-3">
-                    <div className="flex items-center gap-3">
-                      <div className="flex items-center justify-center text-sm font-semibold text-blue-600 bg-blue-100 rounded-full h-9 w-9 shrink-0">
-                        {employee.name.charAt(0)}
+                    <div className="flex items-center gap-2.5">
+                      <div className="flex items-center justify-center w-8 h-8 bg-gray-100 rounded-lg">
+                        <Tags size={15} className="text-gray-600" />
                       </div>
 
-                      <div>
-                        <h4 className="text-sm font-medium text-gray-800 whitespace-nowrap">
-                          {employee.name}
-                        </h4>
-
-                        <div className="mt-0.5 flex items-center gap-1 text-xs text-gray-500 whitespace-nowrap">
-                          <Mail size={12} />
-                          {employee.email}
-                        </div>
-                      </div>
+                      <span className="text-xs font-medium text-gray-800">
+                        {employee.name}
+                      </span>
                     </div>
                   </td>
-                )}
 
-                {visibleColumns.department && (
-                  <td className="px-4 py-3 text-sm text-gray-700 whitespace-nowrap">
-                    <div className="flex items-center gap-1.5">
-                      <Building2 size={14} className="text-gray-400" />
-                      {employee.department}
-                    </div>
+                  <td className="px-4 py-3 text-xs text-gray-500">
+                    {employee.department || "-"}
                   </td>
-                )}
 
-                {visibleColumns.salary && (
-                  <td className="px-4 py-3 text-sm font-medium text-gray-700 whitespace-nowrap">
-                    {employee.salary}
-                  </td>
-                )}
-
-                {visibleColumns.status && (
-                  <td className="px-4 py-3 whitespace-nowrap">
+                  <td className="px-4 py-3">
                     <span
-                      className={`rounded-full px-2.5 py-1 text-[11px] font-medium ${
+                      className={`inline-flex rounded-full px-2 py-1 text-[10px] font-medium ${
                         employee.status === "Active"
                           ? "bg-green-100 text-green-700"
                           : "bg-red-100 text-red-700"
@@ -316,55 +408,20 @@ export default function BasicTableShowcase() {
                       {employee.status}
                     </span>
                   </td>
-                )}
 
-                {visibleColumns.location && (
-                  <td className="px-4 py-3 text-sm text-gray-700 whitespace-nowrap">
-                    {employee.location}
+                  <td className="px-4 py-3 text-right">
+                    <button
+                      type="button"
+                      className="text-xs font-medium text-gray-500 hover:text-gray-900"
+                    >
+                      Edit
+                    </button>
                   </td>
-                )}
-
-                {visibleColumns.manager && (
-                  <td className="px-4 py-3 text-sm text-gray-700 whitespace-nowrap">
-                    {employee.manager}
-                  </td>
-                )}
-
-                {visibleColumns.joinDate && (
-                  <td className="px-4 py-3 text-sm text-gray-700 whitespace-nowrap">
-                    {employee.joinDate}
-                  </td>
-                )}
-
-                {visibleColumns.phone && (
-                  <td className="px-4 py-3 text-sm text-gray-700 whitespace-nowrap">
-                    {employee.phone}
-                  </td>
-                )}
-
-                {visibleColumns.actions && (
-                  <td className="px-4 py-3">
-                    <div className="flex justify-center gap-2">
-                      <button
-                        type="button"
-                        className="rounded-md border border-blue-200 p-1.5 text-blue-600 transition hover:bg-blue-600 hover:text-white"
-                      >
-                        <Pencil size={14} />
-                      </button>
-
-                      <button
-                        type="button"
-                        className="rounded-md border border-red-200 p-1.5 text-red-600 transition hover:bg-red-600 hover:text-white"
-                      >
-                        <Trash2 size={14} />
-                      </button>
-                    </div>
-                  </td>
-                )}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
